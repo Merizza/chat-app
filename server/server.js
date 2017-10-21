@@ -18,8 +18,30 @@ var server = http.createServer(app);
 //});
 var io = socketIO(server);
 
+
+
 io.on('connection', (socket) => {
 	console.log('New user connected');
+	
+//	socket.emit('newEmail', {
+//		from: 'momo@example.com',
+//		text: 'What\'s up',
+//		createdAt: 123
+//	});
+	
+	socket.emit('newMessage', {
+		from: 'Diana',
+		text: 'How about dinner?',
+		createdAt: 123456
+	});
+	
+//	socket.on('createEmail', (newEmail) => {
+//		console.log('createEmail', newEmail);
+//	});
+	
+	socket.on('createMessage', (newMessage) => {
+		console.log('createMessage', newMessage);
+	});
 	
 	socket.on('disconnect', () => {
 		console.log('Client disconnected');
@@ -41,3 +63,4 @@ server.listen(3000, () => {
 //Get the path to the index.html(weird way)
 //console.log(__dirname + '/../public');
 
+//NOTE: It's not a problem to use arrow function within files that are using node codes
