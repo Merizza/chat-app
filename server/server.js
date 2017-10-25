@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 //Configure the express static middleware
 app.use(express.static(publicPath));
 
-server.listen(3000, () => {
+server.listen(port, () => {
 	console.log(`Server is up on ${port}`);
 });
 //Change app to server
