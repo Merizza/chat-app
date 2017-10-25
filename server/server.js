@@ -28,19 +28,25 @@ io.on('connection', (socket) => {
 //		text: 'What\'s up',
 //		createdAt: 123
 //	});
-	
-	socket.emit('newMessage', {
-		from: 'Diana',
-		text: 'How about dinner?',
-		createdAt: 123456
-	});
+
+//REMOVED
+//	socket.emit('newMessage', {
+//		from: 'Diana',
+//		text: 'How about dinner?',
+//		createdAt: 123456
+//	});
 	
 //	socket.on('createEmail', (newEmail) => {
 //		console.log('createEmail', newEmail);
 //	});
 	
-	socket.on('createMessage', (newMessage) => {
-		console.log('createMessage', newMessage);
+	socket.on('createMessage', (message) => {
+		console.log('createMessage', message);
+		io.emit('newMessage', {
+			from: message.from,
+			text: message.text,
+			createdAt: new Date().getTime()
+		});
 	});
 	
 	socket.on('disconnect', () => {
@@ -64,3 +70,5 @@ server.listen(3000, () => {
 //console.log(__dirname + '/../public');
 
 //NOTE: It's not a problem to use arrow function within files that are using node codes
+//NOTE: socket.emit() : emit an event to a single connection
+//NOTE: io.emit() : emit an event to every single connection
